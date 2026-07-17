@@ -16,12 +16,12 @@ async function findByIdAndUser(id, userId) {
   return result.rows[0] || null;
 }
 
-async function create({ userId, title, description }) {
+async function create({ userId, title, description, priority }) {
   const result = await pool.query(
-    `INSERT INTO tasks (user_id, title, description)
-     VALUES ($1, $2, $3)
+    `INSERT INTO tasks (user_id, title, description, priority)
+     VALUES ($1, $2, $3, $4)
      RETURNING *`,
-    [userId, title, description || null]
+    [userId, title, description || null, priority || 'medium']
   );
   return result.rows[0];
 }

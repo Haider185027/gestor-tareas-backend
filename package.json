@@ -7,9 +7,11 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "migrate": "psql \"$DATABASE_URL\" -f src/db/schema.sql"
+    "migrate": "psql \"$DATABASE_URL\" -f src/db/schema.sql",
+    "migrate:add-priority": "psql \"$DATABASE_URL\" -f src/db/migrations/001_add_priority_to_tasks.sql"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.110.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

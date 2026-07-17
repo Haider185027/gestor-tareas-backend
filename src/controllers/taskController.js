@@ -1,5 +1,6 @@
 const { validationResult } = require('express-validator');
 const taskModel = require('../models/taskModel');
+const aiService = require('../services/aiService');
 
 async function list(req, res, next) {
   try {
@@ -30,7 +31,8 @@ async function create(req, res, next) {
 
   try {
     const { title, description } = req.body;
-    const task = await taskModel.create({ userId: req.userId, title, description });
+    const priority = await aiService.suggestPriority(title, description);
+    const task = await taskModel.create({ userId: req.userId, title, description, priority });
     res.status(201).json(task);
   } catch (err) {
     next(err);
